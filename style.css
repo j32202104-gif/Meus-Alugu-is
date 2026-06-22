@@ -1,0 +1,65 @@
+body {
+  font-family: Arial;
+  background: #eef2f7;
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  background: #1e2a38;
+  color: white;
+  padding: 15px;
+  margin: 0;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+  gap: 10px;
+}
+
+.card {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.controls {
+  margin: 10px;
+}
+
+input, select {
+  padding: 8px;
+  margin: 5px;
+}
+
+button {
+  padding: 8px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+table {
+  width: 95%;
+  margin: auto;
+  background: white;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background: #34495e;
+  color: white;
+}
+
+tr:hover {
+  background: #f1f1f1;
+}

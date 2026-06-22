@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Aluguéis</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🏢 Sistema de Gestão de Aluguéis</h1>
+
+<!-- DASHBOARD -->
+<div class="dashboard">
+  <div class="card">Total: <span id="total">0</span></div>
+  <div class="card">Pagos: <span id="pagos">0</span></div>
+  <div class="card">Atrasados: <span id="atrasados">0</span></div>
+</div>
+
+<!-- CONTROLES -->
+<div class="controls">
+  <input id="busca" placeholder="🔎 Buscar inquilino..." onkeyup="renderizar()">
+
+  <select id="filtro" onchange="renderizar()">
+    <option value="todos">Todos</option>
+    <option value="pagos">Pagos</option>
+    <option value="atrasados">Atrasados</option>
+  </select>
+</div>
+
+<!-- FORM -->
+<div class="form">
+  <input id="nome" placeholder="Nome">
+  <input id="casa" placeholder="Imóvel">
+  <input id="valor" placeholder="Valor">
+  <input id="vencimento" type="number" placeholder="Dia vencimento">
+  <button onclick="adicionar()">Adicionar</button>
+</div>
+
+<button onclick="exportarPDF()">📄 Exportar PDF</button>
+<button onclick="limparTudo()">🗑️ Limpar Tudo</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Imóvel</th>
+      <th>Valor</th>
+      <th>Vencimento</th>
+      <th>Status</th>
+      <th>Pagamento</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody id="tabela"></tbody>
+</table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
