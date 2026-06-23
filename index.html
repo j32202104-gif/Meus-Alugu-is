@@ -2,59 +2,175 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Sistema de Aluguéis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Aluguéis</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>🏢 Sistema de Gestão de Aluguéis</h1>
+  <header class="topo">
+    <div>
+      <p class="marca">MEUS ALUGUÉIS</p>
+      <h1>Controle simples dos seus imóveis</h1>
+      <p class="subtitulo">
+        Cadastre os inquilinos, acompanhe pagamentos e veja os valores do mês.
+      </p>
+    </div>
 
-<!-- DASHBOARD -->
-<div class="dashboard">
-  <div class="card">Total: <span id="total">0</span></div>
-  <div class="card">Pagos: <span id="pagos">0</span></div>
-  <div class="card">Atrasados: <span id="atrasados">0</span></div>
+    <div class="data-box">
+      <span>Hoje</span>
+      <strong id="dataAtual">Carregando...</strong>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="resumo">
+      <div class="card">
+        <span class="card-titulo">Imóveis cadastrados</span>
+        <strong id="totalImoveis">0</strong>
+      </div>
+
+      <div class="card">
+        <span class="card-titulo">Total previsto</span>
+        <strong id="totalPrevisto">R$ 0,00</strong>
+      </div>
+
+      <div class="card">
+        <span class="card-titulo">Pagamentos recebidos</span>
+        <strong id="totalRecebido">R$ 0,00</strong>
+      </div>
+
+      <div class="card alerta">
+        <span class="card-titulo">Aluguéis atrasados</span>
+        <strong id="totalAtrasado">0</strong>
+      </div>
+    </section>
+
+    <section class="cadastro">
+      <div class="titulo-secao">
+        <div>
+          <p class="etiqueta">NOVO CADASTRO</p>
+          <h2>Cadastrar aluguel</h2>
+          <p>Preencha os dados abaixo e clique em salvar.</p>
+        </div>
+      </div>
+
+      <div class="formulario">
+<div class="campo">
+  <label for="agua">Conta de água</label>
+  <input id="agua" type="number" min="0" step="0.01" placeholder="Ex.: 80,00">
 </div>
 
-<!-- CONTROLES -->
-<div class="controls">
-  <input id="busca" placeholder="🔎 Buscar inquilino..." onkeyup="renderizar()">
-
-  <select id="filtro" onchange="renderizar()">
-    <option value="todos">Todos</option>
-    <option value="pagos">Pagos</option>
-    <option value="atrasados">Atrasados</option>
-  </select>
+<div class="campo">
+  <label for="luz">Conta de luz</label>
+  <input id="luz" type="number" min="0" step="0.01" placeholder="Ex.: 150,00">
 </div>
+        <div class="campo">
+          <label for="imovel">Nome do imóvel</label>
+          <input id="imovel" type="text" placeholder="Ex.: Casa 1">
+        </div>
 
-<!-- FORM -->
-<div class="form">
-  <input id="nome" placeholder="Nome">
-  <input id="casa" placeholder="Imóvel">
-  <input id="valor" placeholder="Valor">
-  <input id="vencimento" type="number" placeholder="Dia vencimento">
-  <button onclick="adicionar()">Adicionar</button>
-</div>
+        <div class="campo">
+          <label for="endereco">Endereço</label>
+          <input id="endereco" type="text" placeholder="Ex.: QN 10, Casa 20">
+        </div>
 
-<button onclick="exportarPDF()">📄 Exportar PDF</button>
-<button onclick="limparTudo()">🗑️ Limpar Tudo</button>
+        <div class="campo">
+          <label for="nome">Inquilino responsável</label>
+          <input id="nome" type="text" placeholder="Nome completo">
+        </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Imóvel</th>
-      <th>Valor</th>
-      <th>Vencimento</th>
-      <th>Status</th>
-      <th>Pagamento</th>
-      <th>Ação</th>
-    </tr>
-  </thead>
-  <tbody id="tabela"></tbody>
-</table>
+        <div class="campo">
+          <label for="moradores">Quantidade de moradores</label>
+          <input id="moradores" type="number" min="1" placeholder="Ex.: 3">
+        </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="script.js"></script>
+        <div class="campo">
+          <label for="valor">Valor do aluguel</label>
+          <input id="valor" type="number" min="0" step="0.01" placeholder="Ex.: 850,00">
+        </div>
+
+        <div class="campo">
+          <label for="vencimento">Dia de vencimento</label>
+          <input id="vencimento" type="number" min="1" max="31" placeholder="Ex.: 10">
+        </div>
+
+        <div class="campo">
+          <label for="mes">Mês de referência</label>
+          <input id="mes" type="month">
+        </div>
+
+        <div class="campo campo-grande">
+          <label for="observacao">Observações</label>
+          <textarea id="observacao" placeholder="Ex.: Água inclusa no aluguel"></textarea>
+        </div>
+
+        <button class="botao-salvar" type="button" onclick="adicionar()">
+          + Salvar aluguel
+        </button>
+
+      </div>
+    </section>
+
+    <section class="lista">
+      <div class="titulo-lista">
+        <div>
+          <p class="etiqueta">REGISTROS</p>
+          <h2>Aluguéis cadastrados</h2>
+        </div>
+
+        <input id="busca" type="text" placeholder="Buscar inquilino ou imóvel">
+      </div>
+
+      <div class="tabela-responsiva">
+        <table>
+          <thead>
+            <tr>
+              <th>Imóvel</th>
+              <th>Inquilino</th>
+           <th>Moradores</th>
+<th>Aluguel</th>
+<th>Água + Luz</th>
+<th>Total da casa</th>
+<th>Por morador</th>
+<th>Vencimento</th>
+<th>Status</th>
+<th>Pagamento</th>
+              <th>Aluguel</th>
+<th>Água + Luz</th>
+<th>Total da casa</th>
+<th>Por morador</th>
+<th>Vencimento</th>
+              <th>Status</th>
+              <th>Pagamento</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabela">
+            <tr>
+             <td colspan="10" class="vazio"></td>
+                Nenhum aluguel cadastrado ainda.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const hoje = new Date();
+    document.getElementById("dataAtual").textContent =
+      hoje.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      });
+  </script>
+
+  <script src="script.js"></script>
 </body>
 </html>
